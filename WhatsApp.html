@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando para WhatsApp...</title>
+    <script>
+        function redirecionarWhatsApp() {
+            // Lista de números de WhatsApp (formato internacional, sem + ou espaços)
+            const numeros = [
+                "5581988231444",
+                "5581993920338",
+                "5581992901830",
+                "5581991111932",
+                "5581989668803"
+            ];
+
+            // Recupera o último índice salvo
+            let ultimoIndice = localStorage.getItem("ultimoIndiceWhatsApp");
+
+            // Se for a primeira vez, começa do zero
+            if (ultimoIndice === null) {
+                ultimoIndice = 0;
+            } else {
+                // Converte para número e avança para o próximo índice
+                ultimoIndice = (parseInt(ultimoIndice) + 1) % numeros.length;
+            }
+
+            // Salva o novo índice no navegador
+            localStorage.setItem("ultimoIndiceWhatsApp", ultimoIndice);
+
+            // Pega o número correspondente ao índice
+            const numeroEscolhido = numeros[ultimoIndice];
+
+            // Mensagem automática
+            const mensagem = encodeURIComponent("Olá! Vim através do Instagram. Gostaria de mais informações!");
+
+            // Redireciona para o link do WhatsApp
+            window.location.href = `https://wa.me/${numeroEscolhido}?text=${mensagem}`;
+        }
+    </script>
+</head>
+<body onload="redirecionarWhatsApp()">
+    <p>Redirecionando para o WhatsApp...</p>
+</body>
+</html>
